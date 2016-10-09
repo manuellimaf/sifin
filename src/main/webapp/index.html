@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+
+<html lang="en" ng-app="masterchef">
+    <head>
+        <title>Masterchef</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="shortcut icon" href="images/masterchef.png" type="image/png"/>
+        <link rel="stylesheet" href="stylesheets/bootstrap.min.css"/>
+        <link rel="stylesheet" href="stylesheets/ngDialog.min.css"/>
+        <link rel="stylesheet" href="stylesheets/ngDialog-theme-default.min.css"/>
+        <link rel="stylesheet" href="stylesheets/loading-bar.min.css"/>
+
+        <script src="javascripts/vendor/angular.min.js"></script>
+        <script src="javascripts/vendor/angular-cookies.min.js"></script>
+        <script src="javascripts/vendor/angular-ui-router.min.js"></script>
+        <script src="javascripts/vendor/loading-bar.min.js"></script>
+        <script src="javascripts/vendor/ngDialog.min.js"></script>
+        <script src="javascripts/vendor/jquery-1.11.3.min.js"></script>
+        <script src="javascripts/vendor/bootstrap.min.js"></script>
+
+        <script src="javascripts/app.js"></script>
+        <script src="javascripts/errorHandler.js"></script>
+        <script src="javascripts/controllers/main.js"></script>
+        <script src="javascripts/controllers/db.js"></script>
+
+        <script type="text/ng-template" id="templateId">
+            <h3>{{status}} {{errorType}}</h3>
+            <p>{{request}}</p>
+            <p>{{errorMessage}}</p>
+            <p ng-bind-html="stackTrace"></p>
+        </script>
+
+        <script type="text/ng-template" id="userExTemplate">
+            <h3><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> <span>{{errorType}}</span></h3>
+            <p>{{errorMessage}}</p>
+        </script>
+    </head>
+    <body>
+        <div ui-view="links"></div>
+        <div class="container-fluid main-container">
+            <div ui-view class="main-view"/>
+        </div>
+    </body>
+</html>

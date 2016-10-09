@@ -1,0 +1,84 @@
+<div class="row">
+    <div class="col-md-8">
+        <h3>Generación de usuario</h3><hr />
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        Bienvenido a <b>Masterchef</b>, una aplicación para "cocinar datos".
+        </br></br>
+        Para ejecutar queries en una base de datos SOX se deben seguir los siguientes pasos:
+        <br>
+        <ul>
+            <li>Crear un incidente en <a href="https://jira.despegar.com/projects/MCHEF">Jira Masterchef</a> seleccionando una base de datos y agregando como attach un (y solo un) script con las queries que se van a ejecutar (si la base de datos no se encuentra registrada por favor contactarse con dba@despegar.com).</li>
+            <li>Un usuario con perfil de aprobador deberá revisar el Jira y controlar los cambios que se ejecutarán en el script. Si está de acuerdo aprobará el issue.</li>
+            <li>Luego de que se aprueben los cambios se deberá insertar el ID de Jira en el campo de texto de abajo y hacer click en <b>Crear usuario</b>.</li>
+            <li>Masterchef generará un usuario y password temporal en la base de datos seleccionada con el cual se deben ejecutar las queries del script. Este usuario tendrá permisos de ALTER, CREATE, CREATE TEMPORARY TABLES, DELETE, EXECUTE, INDEX, INSERT, LOCK TABLES, REFERENCES, SELECT, SHOW VIEW, TRIGGER, UPDATE, CREATE VIEW y DROP.</li>
+            <li>Se puede utilizar cualquier cliente base de datos para conectarse a la base de datos, aunque recomendamos hacerlo directamente en una terminal. Las queries ejecutadas serán auditadas por Masterchef.</li>
+            <li>Después de ejecutar las queries se debe ingresar nuevamente el ID de Jira y presionar <b>Terminar cocción</b>.</li>
+            <li>Si no coinciden las queries aprobadas con las ejecutadas por el usuario, el Jira quedará en estado <b>"To Verify"</b> para ser revisado por un auditor.</li>
+        </ul>
+
+
+        <form class="navbar-form navbar-left" role="search" >
+            <div class="form-group">
+                <input type="text" ng-model="jiraID"
+                    class="form-control" placeholder="Ingresar Jira ID">
+            </div>
+            <button type="submit" ng-click="generateUser()" class="btn btn-default btn-success">Crear Usuario</button>
+            <button type="button" ng-click="finishIssue()"  class="btn btn-default btn-warning">Terminar cocción</button>
+        </form>
+
+        <div class="col-md-11 alert alert-success" role="alert" ng-if="created">
+            <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+            Usuario <b>{{dbuser.user}}</b> con password <b>{{dbuser.pass}}</b> creado!
+        </div>
+
+        <div class="col-md-11 alert alert-success" role="alert" ng-if="finished">
+            <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+            {{finished}}
+        </div>
+    </div>
+
+</div>
+
+<div ng-if="dba">
+    <div class="row">
+        <div class="col-md-8">
+            <h3>Administración</h3><hr/>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-1">
+            <a ui-sref="app.create-db" class="btn btn-primary">Registrar DB</a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-10 tall">
+            <table st-table="databases" class="table table-striped">
+                <thead>
+                <tr>
+                    <th>Host</th>
+                    <th>Nombre</th>
+                    <th>Puerto</th>
+                    <th>Grupo</th>
+                    <th>Audita en</th>
+                    <th>Acciones</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="db in databases">
+                    <td>{{db.host}}</td>
+                    <td>{{db.name}}</td>
+                    <td>{{db.port}}</td>
+                    <td>{{db.group}}</td>
+                    <td>{{db.audit_file}}</td>
+                    <td><input class="btn btn-xs btn-danger" type="submit" ng-click="deleteDB(db)" value="Desregistrar" /></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

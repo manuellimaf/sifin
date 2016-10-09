@@ -1,0 +1,34 @@
+<div class="row">
+    <div class="col-md-6">
+        <form novalidate class="simple-form" ng-if="status!='Ok'">
+            <h4>Crear base de datos</h4>
+            <div class="form-group">
+                <label>Host</label> <input type="text" class="form-control" ng-model="db.host"  />
+            </div>
+            <div class="form-group">
+                <label>Nombre</label> <input type="text" class="form-control" ng-model="db.name"  />
+            </div>
+            <div class="form-group">
+                <label>Puerto</label> <input type="text" class="form-control" ng-model="db.port" />
+            </div>
+            <div class="form-group">
+                <label>Usuario</label> <input type="text" class="form-control" ng-model="db.user" />
+            </div>
+            <div class="form-group">
+                <label>Constraseña</label> <input type="password" class="form-control" ng-model="db.pass" />
+            </div>
+            <div class="form-group">
+                <label>Grupo</label> <input type="text" class="form-control" ng-model="db.group" />
+            </div>
+            <div class="form-group">
+                <input class="btn btn-default" type="button" ui-sref="app.main" value="Cancelar" />
+                <input class="btn btn-primary" type="submit" ng-click="update(db)" value="Guardar" />
+            </div>
+        </form>
+
+        <div class="alert alert-success form-group" role="alert" ng-if="status=='Ok'">
+            <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+            Base de datos creada!
+        </div>
+    </div>
+</div>
