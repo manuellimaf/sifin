@@ -7,6 +7,11 @@ trait Config {
 
   val smtpHost = mail.getString("smtp.host")
   val smtpPort = mail.getInt("smtp.port")
+
+  val dbHost = db.getString("host")
+  val dbPort = db.getInt("port")
+  val dbUser = db.getString("user")
+  val dbPass = db.getString("pass")
 }
 
 object Config {

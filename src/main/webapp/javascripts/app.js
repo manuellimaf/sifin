@@ -1,14 +1,8 @@
-var requires = [ 'angular-loading-bar', 'ui.router', 'ngDialog', 'ngCookies' ]
+var requires = [ 'angular-loading-bar', 'ui.router', 'ngDialog', 'ngCookies' ];
 
-app = angular.module('masterchef', requires)
+app = angular.module('sifin', requires);
 
-app.factory("user", function($http) {
-	var promise = $http.get("/masterchef/user");
-	return promise
-})
-
-app.config(function($stateProvider, $urlRouterProvider, $locationProvider,
-		$httpProvider, $urlMatcherFactoryProvider) {
+app.config(function($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider, $urlMatcherFactoryProvider) {
 
 	$httpProvider.interceptors.push('reponseHandler');
 
@@ -16,40 +10,28 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider,
 
 	.state('app', {
 		abstract : true,
-		url : '/',
-		views : {
-			'links' : {
-				templateUrl : 'templates/links.html',
-				controller : function($scope, links, user) {
-					$scope.links = links.data
-					user.then(function(response) {
-						$scope.username = response.data.name
-					})
-					$scope.open = false
-				},
-				resolve : {
-					"links" : function($http) {
-						return $http.get("/masterchef/links")
-					}
-				}
-			},
-			'' : {
-				template : '<ui-view></ui-view>',
+		url : '/'
+	})
+
+	.state('app.monthly', {
+		url : 'monthly',
+		templateUrl : 'templates/monthly.html',
+		resolve : {
+			months: function($http) {
+				return $http({
+					method : 'GET',
+					url : 'months'
+				});
 			}
-		}
+		},
+		controller : 'MonthlyCtrl'
 	})
 
-	.state('app.main', {
-		url : "main",
-		controller : 'MainCtrl',
-		templateUrl : 'templates/main.html'
-	})
+	.state('app.anual', {
+    		url : 'anual',
+    		templateUrl : 'templates/anual.html',
+    		controller : 'AnualCtrl'
+    	});
 
-	.state('app.create-db', {
-		url : "create-db",
-		controller : 'CreateDBCtrl',
-		templateUrl : 'templates/create-db.html'
-	})
-
-	$urlRouterProvider.otherwise("/main")
-})
+	$urlRouterProvider.otherwise("/monthly");
+});

@@ -1,7 +1,7 @@
 package manuellimaf.sifin
 
 import manuellimaf.server.{Https, MyServer}
-import manuellimaf.sifin.controller.{HealthCheck, UserController}
+import manuellimaf.sifin.controller.{HealthCheck, CatalogController}
 
 object SiFinMain extends MyServer with Https
-  with UserController with HealthCheck
+  with CatalogController with HealthCheck
