@@ -10,7 +10,15 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider, $http
 
 	.state('app', {
 		abstract : true,
-		url : '/'
+		url : '/',
+        views : {
+			'links' : {
+				templateUrl : 'templates/links.html'
+			},
+			'' : {
+				template : '<ui-view></ui-view>',
+			}
+        }
 	})
 
 	.state('app.monthly', {
@@ -33,5 +41,5 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider, $http
     		controller : 'AnualCtrl'
     	});
 
-	$urlRouterProvider.otherwise("/monthly");
+	$urlRouterProvider.otherwise("monthly");
 });
