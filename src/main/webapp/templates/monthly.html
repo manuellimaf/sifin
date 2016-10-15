@@ -1,18 +1,31 @@
 <div class="row">
-    <div class="col-md-8">
-        <h3>Resumen mensual</h3><hr />
+    <div class="col-md-12">
+        <h3>Resumen mensual </h3><hr />
     </div>
 </div>
 <div class="row">
-    <div class="col-md-12">
+    <div class="col-md-4">
         <form class="navbar-form navbar-left">
             <div class="form-group">
-                <label for="month">Mes</label>
                 <select class="form-control" id="month"
                         ng-options="month.id as month.name for month in months"
                         ng-model="month">
                 </select>
+                <p>Ingreso $: {{movements.income.own}}</p>
+                <p>Gasto efectivo $: {{movements.expenses.cash}}</p>
+                <p>Gasto TC $: {{movements.expenses.tc}}</p>
+                <p>Impuestos $: {{movements.expenses.taxes}}</p>
+                <p>Gasto total $: {{movements.expenses.total}}</p>
+                <p>Ahorro $: {{movements.savings}}</p>
+                <p>Invertido $: {{movements.invested}}</p>
+                <p>Dinero restante $: {{movements.available}}</p>
+                <p>Gasto estimado $: {{movements.expenses.estimated}}</p>
+                <p>Dolar $: {{movements.usd-price}}</p>
             </div>
         </form>
+    </div>
+    <div class="col-md-8">
+        <highchart id="categoryExpensesChart" config="categoryChart"></highchart>
+        <highchart id="dailyExpensesChart" config="dailyChart"></highchart>
     </div>
 </div>

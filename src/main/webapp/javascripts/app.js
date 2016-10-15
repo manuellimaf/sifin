@@ -1,4 +1,4 @@
-var requires = [ 'angular-loading-bar', 'ui.router', 'ngDialog', 'ngCookies' ];
+var requires = [ 'angular-loading-bar', 'ui.router', 'ngDialog', 'ngCookies', 'highcharts-ng' ];
 
 app = angular.module('sifin', requires);
 
