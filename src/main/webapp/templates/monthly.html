@@ -11,7 +11,8 @@
                         ng-options="month.id as month.name for month in months"
                         ng-model="month">
                 </select>
-                <p>Ingreso $: {{movements.income.own}}</p>
+                <p>Ingreso propio $: {{movements.income.own}}</p>
+                <p>Ingreso (otros) $: {{movements.income.other}}</p>
                 <p>Gasto efectivo $: {{movements.expenses.cash}}</p>
                 <p>Gasto TC $: {{movements.expenses.tc}}</p>
                 <p>Impuestos $: {{movements.expenses.taxes}}</p>
