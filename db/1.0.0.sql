@@ -95,10 +95,12 @@ CREATE TABLE investment (
 CREATE TABLE expense (
   id bigint(20) NOT NULL AUTO_INCREMENT,
   amount decimal(20,6) NOT NULL,
+  day int NOT NULL,
   month_id bigint(20) NOT NULL,
   currency_id bigint(20) NOT NULL,
   payment_method_id bigint(20) NOT NULL,
   category_id bigint(20) NOT NULL,
+  description varchar(256),
   PRIMARY KEY (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -106,6 +108,7 @@ CREATE TABLE expense (
 -- Test data (review FKs)
 insert into income (own, amount, month_id, currency_id, description) values (0, 1200,1,1,'Deuda Germán');
 insert into income (own, amount, month_id, currency_id, description) values (1,38922.13,1,1,'Sueldo');
+insert into income (own, amount, month_id, currency_id, description) values (0, 1000,1,1,'Leo (regalo Marco)');
 
 insert into exchange_rate (amount, month_id, currency_id) values (15.6, 1, 2);
 insert into exchange_rate (amount, month_id, currency_id) values (15.88, 2, 2);
