@@ -19,7 +19,5 @@ object DefaultCatalogService extends CatalogService with DBConnectionSupport wit
   def getAllCategories: Seq[Category] = CatalogDAO.getAllCategories
 
   def getAllMonths: Seq[Month] = CatalogDAO.getAllMonths
-  }
-
 }
 
