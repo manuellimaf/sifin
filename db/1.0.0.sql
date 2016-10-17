@@ -35,7 +35,7 @@ CREATE TABLE income (
   amount decimal(20,6),
   month_id bigint(20) NOT NULL,
   currency_id bigint(20) NOT NULL,
-  description varchar(256),
+  description varchar(256) default '',
   PRIMARY KEY (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -100,7 +100,7 @@ CREATE TABLE expense (
   currency_id bigint(20) NOT NULL,
   payment_method_id bigint(20) NOT NULL,
   category_id bigint(20) NOT NULL,
-  description varchar(256),
+  description varchar(256) default '',
   PRIMARY KEY (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -118,3 +118,6 @@ insert into saving (amount, balance, month_id, currency_id) values (25100, 14322
 insert into saving (amount, balance, month_id, currency_id) values (1000, 53991.41, 4, 2);
 
 insert into investment (amount, balance, month_id, currency_id) values (-10000, 15000, 4, 1);
+
+
+insert into expense (amount, day, month_id, currency_id, payment_method_id, category_id, description) values (235,15,1,1,1,8,'');

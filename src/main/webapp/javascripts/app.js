@@ -30,6 +30,12 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider, $http
 					method : 'GET',
 					url : 'months'
 				});
+			},
+			movements: function($http) {
+			    return $http({
+			        method: 'GET',
+			        url: 'movements/1'
+			    });
 			}
 		},
 		controller : 'MonthlyCtrl'
@@ -41,5 +47,5 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider, $http
     		controller : 'AnualCtrl'
     	});
 
-	$urlRouterProvider.otherwise("monthly");
+	$urlRouterProvider; //.otherwise("monthly");
 });

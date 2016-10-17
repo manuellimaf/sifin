@@ -20,11 +20,12 @@ trait DBConnectionSupport extends Config with Logging {
     connection =>
       val statement: PreparedStatement = connection.prepareStatement(query)
 
-      def setParams(parameters: Seq[Any], idx: Int = 0): Unit = {
-        if (parameters.nonEmpty) {
-          statement.setObject(idx, parameters.head)
-          setParams(parameters.tail, idx + 1)
-        }
+      def setParams(parameters: Seq[Any], idx: Int = 1): Unit = parameters match {
+        case Nil => // Nothing to do
+        case p :: ps =>
+          log.debug(s"Setting parameter[$idx]: $p")
+          statement.setObject(idx, p)
+          setParams(ps, idx + 1)
       }
 
       setParams(params)

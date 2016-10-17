@@ -1,13 +1,6 @@
-app.controller('MonthlyCtrl', function($scope, $state,  $http, $window, months) {
+app.controller('MonthlyCtrl', function($scope, $state,  $http, $window, months, movements) {
 	$scope.months = months.data;
-	$scope.movements = {
-	    "income": {"own": 10000.5, "other": 10.33},
-	    "expenses": {"cash": 2000.4, "tc": 200.0, "taxes": 1000.4, "total": 3200.8, "estimated": 1500},
-	    "savings": 3000,
-	    "invested": 1000,
-	    "available": 2800,
-	    "usd-price": 15.44
-	};
+	$scope.movements = movements.data;
 
     $scope.categoryChart = {
         options: {

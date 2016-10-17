@@ -11,17 +11,34 @@
                         ng-options="month.id as month.name for month in months"
                         ng-model="month">
                 </select>
-                <p>Ingreso propio $: {{movements.income.own}}</p>
-                <p>Ingreso (otros) $: {{movements.income.other}}</p>
-                <p>Gasto efectivo $: {{movements.expenses.cash}}</p>
-                <p>Gasto TC $: {{movements.expenses.tc}}</p>
-                <p>Impuestos $: {{movements.expenses.taxes}}</p>
-                <p>Gasto total $: {{movements.expenses.total}}</p>
-                <p>Ahorro $: {{movements.savings}}</p>
-                <p>Invertido $: {{movements.invested}}</p>
-                <p>Dinero restante $: {{movements.available}}</p>
-                <p>Gasto estimado $: {{movements.expenses.estimated}}</p>
-                <p>Dolar $: {{movements.usd-price}}</p>
+                <div class="col-md-12">
+                    <div class="col-md-6">
+                        <p>Ingreso propio</p>
+                        <p>Ingreso (otros)</p>
+                        <p>Gasto efectivo</p>
+                        <p>Gasto TC</p>
+                        <p>Impuestos</p>
+                        <p>Gasto total</p>
+                        <p>Ahorro</p>
+                        <p>Invertido</p>
+                        <p>Dinero restante</p>
+                        <p>Gasto estimado</p>
+                        <p>Dolar</p>
+                    </div>
+                    <div class="col-md-6">
+                        <p>{{movements.income.own | currency}}</p>
+                        <p>{{movements.income.other | currency}}</p>
+                        <p>{{movements.expenses.cash | currency}}</p>
+                        <p>{{movements.expenses.tc | currency}}</p>
+                        <p>{{movements.expenses.taxes | currency}}</p>
+                        <p>{{movements.expenses.total | currency}}</p>
+                        <p>{{movements.savings | currency}}</p>
+                        <p>{{movements.invested | currency}}</p>
+                        <p>{{movements.available | currency}}</p>
+                        <p>{{movements.expenses.estimated | currency}}</p>
+                        <p>{{movements.usdPrice | currency}}</p>
+                    </div>
+                </div>
             </div>
         </form>
     </div>
