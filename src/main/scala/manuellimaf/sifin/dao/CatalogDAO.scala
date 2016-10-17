@@ -1,6 +1,6 @@
 package manuellimaf.sifin.dao
 
-import manuellimaf.sifin.model.{Month, Category}
+import manuellimaf.sifin.model.{Currency, Month, Category}
 import manuellimaf.sifin.service.DBConnectionSupport
 
 object CatalogDAO extends DBConnectionSupport {
@@ -19,6 +19,10 @@ object CatalogDAO extends DBConnectionSupport {
 
   def getMonthById(id: Long) = withQueryResult("select id, name from month where id = ? limit 1", Seq(id)) {
     res => Month(res.getLong("id"), res.getString("name"))
+  }.head
+
+  def getCurrency(symbol: String): Currency = withQueryResult("select id, symbol from currency where symbol = ? limit 1", Seq(symbol)) {
+    res => Currency(res.getLong("id"), res.getString("symbol"))
   }.head
 
 }

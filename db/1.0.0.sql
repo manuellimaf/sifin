@@ -113,6 +113,7 @@ insert into income (own, amount, month_id, currency_id, description) values (0, 
 insert into exchange_rate (amount, month_id, currency_id) values (15.6, 1, 2);
 insert into exchange_rate (amount, month_id, currency_id) values (15.88, 2, 2);
 insert into exchange_rate (amount, month_id, currency_id) values (16.14, 3, 2);
+insert into exchange_rate (amount, month_id, currency_id) values (15.4, 4, 2);
 
 insert into saving (amount, balance, month_id, currency_id) values (25100, 14322.05, 4, 1);
 insert into saving (amount, balance, month_id, currency_id) values (1000, 53991.41, 4, 2);
