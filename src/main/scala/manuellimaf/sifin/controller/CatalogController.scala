@@ -10,6 +10,10 @@ trait CatalogController extends CatalogSupport {
     asJson(catalogService.getAllCategories)
   }
 
+  get("/category-names") {
+    asJson(catalogService.getAllCategories.map(_.description))
+  }
+
   get("/months") {
     asJson(catalogService.getAllMonths)
   }

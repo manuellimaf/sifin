@@ -36,7 +36,25 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider, $http
 			        method: 'GET',
 			        url: 'movements/1'
 			    });
-			}
+			},
+            categories: function($http) {
+                 return $http({
+                     method: 'GET',
+                     url: 'category-names'
+                 });
+             },
+			expensesByCat: function($http) {
+                return $http({
+                    method: 'GET',
+                    url: 'expenses-by-category/1'
+                });
+            },
+            expensesByDay: function($http) {
+                 return $http({
+                     method: 'GET',
+                     url: 'expenses-by-day/1'
+                 });
+             }
 		},
 		controller : 'MonthlyCtrl'
 	})

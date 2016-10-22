@@ -1,4 +1,4 @@
-app.controller('MonthlyCtrl', function($scope, $state,  $http, $window, months, movements) {
+app.controller('MonthlyCtrl', function($scope, $state,  $http, $window, months, movements, categories, expensesByCat, expensesByDay) {
 	$scope.months = months.data;
 	$scope.movements = movements.data;
 
@@ -9,25 +9,17 @@ app.controller('MonthlyCtrl', function($scope, $state,  $http, $window, months, 
             },
             legend: { enabled: false }
         },
-        series: [{
-            data: [
-                ["Supermercado", 100],
-                ["Comida trabajo", 150],
-                ["Comida fuera", 120],
-                ["Salidas", 89],
-                ["Transporte", 170],
-                ["Educación", 0],
-                ["Salud", 10],
-                ["Extras", 70]
-            ],
-            dataLabels: {enabled: true}
-        }],
         title: {
             text: 'Gasto por categoría'
         },
-        yAxis: { title: { enabled: false } },
+        yAxis: {
+            title: { enabled: false },
+             },
+        xAxis: { categories: categories.data },
+        series: expensesByCat.data,
         loading: false
     };
+
     $scope.dailyChart = {
         options: {
             chart: {
@@ -36,12 +28,16 @@ app.controller('MonthlyCtrl', function($scope, $state,  $http, $window, months, 
              legend: { enabled: false }
         },
         series: [{
-            data: [100, 150, 120, 89, 70, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+            data: expensesByDay.data
         }],
         title: {
             text: 'Gasto por día'
         },
         yAxis: { title: {enabled: false } },
+        xAxis: {
+            allowDecimals: false,
+            tickInterval: 1
+        },
         loading: false
     };
 

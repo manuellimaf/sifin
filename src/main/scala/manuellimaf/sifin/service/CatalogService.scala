@@ -16,8 +16,8 @@ trait CatalogService {
 
 object DefaultCatalogService extends CatalogService with DBConnectionSupport with Logging with Config {
 
-  def getAllCategories: Seq[Category] = CatalogDAO.getAllCategories
+  def getAllCategories: Seq[Category] = CatalogDAO.getAllCategories.sortBy(_.description)
 
-  def getAllMonths: Seq[Month] = CatalogDAO.getAllMonths
+  def getAllMonths: Seq[Month] = CatalogDAO.getAllMonths.sortBy(_.name)
 }
 

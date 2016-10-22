@@ -13,7 +13,7 @@ trait MonthService {
   def getMonthMovements(monthId: Long): MonthData
 }
 
-object DefaultMonthService extends MonthService with DBConnectionSupport with Logging with Config {
+object DefaultMonthService extends MonthService with Logging with Config {
 
   def getMonthMovements(monthId: Long): MonthData = {
     val month = CatalogDAO.getMonthById(monthId)

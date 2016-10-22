@@ -30,5 +30,27 @@ object ExpenseDAO extends DBConnectionSupport {
     )
   }
 
+  def getMonthExpensesByCategory(month: Month): Map[String, Double] =
+    withQueryResult(
+      """select c.description as cat, sum(e.amount) as amount
+        |from expense e
+        |inner join currency curr on curr.id = e.currency_id
+        |inner join category c on c.id = e.category_id
+        |where e.month_id = ?
+        |group by c.description""".stripMargin, Seq(month.id)) {
+      res => res.getString("cat") -> res.getDouble("amount")
+    }.toMap
+
+
+  def getMonthExpensesByDay(month: Month, currency: Currency): Map[Int, Double] =
+    withQueryResult(
+      """select e.day as day, sum(e.amount) as amount
+        |from expense e
+        |inner join currency curr on curr.id = e.currency_id
+        |where e.month_id = ? and curr.id = ?
+        |group by e.day""".stripMargin, Seq(month.id, currency.id)) {
+      res => res.getInt("day") -> res.getDouble("amount")
+    }.toMap
+
 }
 

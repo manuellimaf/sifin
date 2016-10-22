@@ -24,4 +24,5 @@ package object model {
                        invested: Double,
                        available: Double,
                        usdPrice: Double)
+  case class Serie(name: String, data: Seq[Double])
 }
