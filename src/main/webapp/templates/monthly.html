@@ -1,46 +1,33 @@
-<div class="row">
-    <div class="col-md-12">
-        <h3>Resumen mensual </h3><hr />
+<div class="navbar navbar-default navbar-small">
+    <div class="collapse navbar-collapse navbar-inner">
+        <span class="brand">Resumen mensual</span>
+        <ul class="nav navbar-nav navbar-right">
+            <li>
+                <select class="form-control" id="month"
+                        ng-options="month as month.name for month in months track by month.id"
+                        ng-model="month">
+                </select>
+            </li>
+        </ul>
     </div>
 </div>
 <div class="row">
     <div class="col-md-4">
-        <form class="navbar-form navbar-left">
-            <div class="form-group">
-                <select class="form-control" id="month"
-                        ng-options="month.id as month.name for month in months"
-                        ng-model="month">
-                </select>
-                <div class="col-md-12">
-                    <div class="col-md-6">
-                        <p>Ingreso propio</p>
-                        <p>Ingreso (otros)</p>
-                        <p>Gasto efectivo</p>
-                        <p>Gasto TC</p>
-                        <p>Impuestos</p>
-                        <p>Gasto total</p>
-                        <p>Ahorro</p>
-                        <p>Invertido</p>
-                        <p>Dinero restante</p>
-                        <p>Gasto estimado</p>
-                        <p>Dolar</p>
-                    </div>
-                    <div class="col-md-6">
-                        <p>{{movements.income.own | currency}}</p>
-                        <p>{{movements.income.other | currency}}</p>
-                        <p>{{movements.expenses.cash | currency}}</p>
-                        <p>{{movements.expenses.tc | currency}}</p>
-                        <p>{{movements.expenses.taxes | currency}}</p>
-                        <p>{{movements.expenses.total | currency}}</p>
-                        <p>{{movements.savings | currency}}</p>
-                        <p>{{movements.invested | currency}}</p>
-                        <p>{{movements.available | currency}}</p>
-                        <p>{{movements.expenses.estimated | currency}}</p>
-                        <p>{{movements.usd_price | currency}}</p>
-                    </div>
-                </div>
-            </div>
-        </form>
+        <table class="table table-bordered">
+            <tbody>
+                <tr class="success"><td>Ingreso propio</td><td class="text-right">{{movements.income.own | currency}}</td></tr>
+                <tr class="success"><td>Ingreso (otros)</td><td class="text-right">{{movements.income.other | currency}}</td></tr>
+                <tr class="error"><td>Gasto efectivo</td><td class="text-right">{{movements.expenses.cash | currency}}</td></tr>
+                <tr class="error"><td>Gasto TC</td><td class="text-right">{{movements.expenses.tc | currency}}</td></tr>
+                <tr class="error"><td>Impuestos</td><td class="text-right">{{movements.expenses.taxes | currency}}</td></tr>
+                <tr class="error"><td>Gasto total</td><td class="text-right">{{movements.expenses.total | currency}}</td></tr>
+                <tr class="success"><td>Ahorro</td><td class="text-right">{{movements.savings | currency}}</td></tr>
+                <tr class="info"><td>Invertido</td><td class="text-right">{{movements.invested | currency}}</td></tr>
+                <tr class="success"><td>Dinero restante</td><td class="text-right">{{movements.available | currency}}</td></tr>
+                <tr class="warning"><td>Gasto estimado</td><td class="text-right">{{movements.expenses.estimated | currency}}</td></tr>
+                <tr class="info"><td>Dólar</td><td class="text-right">{{movements.usd_price | currency}}</td></tr>
+            </tbody>
+        </table>
     </div>
     <div class="col-md-8">
         <highchart id="categoryExpensesChart" config="categoryChart"></highchart>

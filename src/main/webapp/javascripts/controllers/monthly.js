@@ -1,6 +1,13 @@
-app.controller('MonthlyCtrl', function($scope, $state,  $http, $window, months, movements, categories, expensesByCat, expensesByDay) {
+app.controller('MonthlyCtrl', function($scope, $state,  $http, $window, $stateParams, months, movements, categories, expensesByCat, expensesByDay) {
 	$scope.months = months.data;
 	$scope.movements = movements.data;
+    $scope.month = { id: $stateParams['monthId'] };
+
+    var onMonthChange = function() {
+        $state.go("app.monthly", { 'monthId': $scope.month.id });
+    };
+
+    $scope.$watch('month', onMonthChange);
 
     $scope.categoryChart = {
         options: {

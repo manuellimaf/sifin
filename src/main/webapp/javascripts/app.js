@@ -22,7 +22,7 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider, $http
 	})
 
 	.state('app.monthly', {
-		url : 'monthly',
+		url : 'monthly/:monthId',
 		templateUrl : 'templates/monthly.html',
 		resolve : {
 			months: function($http) {
@@ -31,10 +31,10 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider, $http
 					url : 'months'
 				});
 			},
-			movements: function($http) {
+			movements: function($http, $stateParams) {
 			    return $http({
 			        method: 'GET',
-			        url: 'movements/1'
+			        url: 'movements/' + $stateParams['monthId']
 			    });
 			},
             categories: function($http) {
@@ -43,16 +43,16 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider, $http
                      url: 'category-names'
                  });
              },
-			expensesByCat: function($http) {
+			expensesByCat: function($http, $stateParams) {
                 return $http({
                     method: 'GET',
-                    url: 'expenses-by-category/1'
+                    url: 'expenses-by-category/' + $stateParams['monthId']
                 });
             },
-            expensesByDay: function($http) {
+            expensesByDay: function($http, $stateParams) {
                  return $http({
                      method: 'GET',
-                     url: 'expenses-by-day/1'
+                     url: 'expenses-by-day/' + $stateParams['monthId']
                  });
              }
 		},
@@ -65,5 +65,5 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider, $http
     		controller : 'AnualCtrl'
     	});
 
-	$urlRouterProvider; //.otherwise("monthly");
+	$urlRouterProvider;//.otherwise("monthly");
 });
