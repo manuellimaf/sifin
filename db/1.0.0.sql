@@ -1,21 +1,25 @@
 CREATE TABLE category (
   id bigint(20) NOT NULL AUTO_INCREMENT,
-  name varchar(4) NOT NULL,
+  name varchar(20) NOT NULL,
   description varchar(45) NOT NULL,
-  is_tax tinyint(1) NOT NULL default 0,
+  type varchar(10) NOT NULL,
   PRIMARY KEY (id),
   UNIQUE KEY name_UNIQUE (name)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-insert into category (name, is_tax, description) values ('SUP', 0, 'Supermercado');
-insert into category (name, is_tax, description) values ('CT', 0, 'Comida trabajo');
-insert into category (name, is_tax, description) values ('CF', 0, 'Comida fuera');
-insert into category (name, is_tax, description) values ('SAL', 0, 'Salidas');
-insert into category (name, is_tax, description) values ('TRAN', 0, 'Transporte');
-insert into category (name, is_tax, description) values ('EDU', 0, 'Educación');
-insert into category (name, is_tax, description) values ('ROP', 0, 'Ropa');
-insert into category (name, is_tax, description) values ('EXT', 0, 'Extras');
-insert into category (name, is_tax, description) values ('TAX', 1, 'Fijos');
+insert into category (name, is_tax, description) values ('cat012', 'EXPENSE', 'Supermercado');
+insert into category (name, is_tax, description) values ('cat008', 'EXPENSE', 'Comida trabajo');
+insert into category (name, is_tax, description) values ('cat007', 'EXPENSE', 'Comida fuera');
+insert into category (name, is_tax, description) values ('cat013', 'EXPENSE', 'Salidas');
+insert into category (name, is_tax, description) values ('cat010', 'EXPENSE', 'Transporte');
+insert into category (name, is_tax, description) values ('cat004', 'EXPENSE', 'Educación');
+insert into category (name, is_tax, description) values ('cat005', 'EXPENSE', 'Ropa');
+insert into category (name, is_tax, description) values ('defaultOut', 'EXPENSE', 'Extras');
+insert into category (name, is_tax, description) values ('20161023T175615', 'TAX', 'Fijos');
+insert into category (name, is_tax, description) values ('defaultInt', 'INCOME', 'Ingreso');
+insert into category (name, is_tax, description) values ('20161023T175712', 'INCOME', 'Ingreso no propio');
+insert into category (name, is_tax, description) values ('20161023T175819', 'SAVING', 'Ahorro');
+insert into category (name, is_tax, description) values ('20161023T175837', 'INVESTMENT', 'Inversión');
 
 CREATE TABLE month (
   id bigint(20) NOT NULL AUTO_INCREMENT,
@@ -36,18 +40,21 @@ CREATE TABLE income (
   month_id bigint(20) NOT NULL,
   currency_id bigint(20) NOT NULL,
   description varchar(256) default '',
-  PRIMARY KEY (id)
+  ref varchar(256),
+  PRIMARY KEY (id),
+  UNIQUE key (ref)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 CREATE TABLE currency (
   id bigint(20) NOT NULL AUTO_INCREMENT,
   symbol varchar(3) NOT NULL,
+  code varchar(3) NOT NULL,
   PRIMARY KEY (id),
   UNIQUE KEY symbol_UNIQUE (symbol)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-insert into currency(symbol) values ('$');
-insert into currency(symbol) values ('u$d');
+insert into currency(symbol, code) values ('$', 'ARS');
+insert into currency(symbol, code) values ('u$d', 'USD');
 
 CREATE TABLE exchange_rate (
   id bigint(20) NOT NULL AUTO_INCREMENT,
@@ -60,19 +67,19 @@ CREATE TABLE exchange_rate (
 
 CREATE TABLE payment_method (
   id bigint(20) NOT NULL AUTO_INCREMENT,
-  name varchar(4) NOT NULL,
+  name varchar(20) NOT NULL,
   type varchar(4) NOT NULL,
   description varchar(45) NOT NULL,
   PRIMARY KEY (id),
   UNIQUE KEY name_UNIQUE (name)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-insert into payment_method (name, description, type) values ('EF', 'Efectivo', 'cash');
-insert into payment_method (name, description, type) values ('AR','Amex rio', 'tc');
-insert into payment_method (name, description, type) values ('MC', 'Master citi', 'tc');
-insert into payment_method (name, description, type) values ('VF', 'Visa francés', 'tc');
-insert into payment_method (name, description, type) values ('VC', 'Visa citi', 'tc');
-insert into payment_method (name, description, type) values ('VR', 'Visa rio', 'tc');
+insert into payment_method (name, description, type) values ('defaultPayment', 'Efectivo', 'cash');
+insert into payment_method (name, description, type) values ('pay002','Amex rio', 'tc');
+insert into payment_method (name, description, type) values ('20151112T003350', 'Master citi', 'tc');
+insert into payment_method (name, description, type) values ('20160630T202516', 'Visa francés', 'tc');
+insert into payment_method (name, description, type) values ('20150507T092936', 'Visa citi', 'tc');
+insert into payment_method (name, description, type) values ('pay001', 'Visa rio', 'tc');
 
 CREATE TABLE saving (
   id bigint(20) NOT NULL AUTO_INCREMENT,
@@ -80,7 +87,9 @@ CREATE TABLE saving (
   balance decimal(20,6) NOT NULL,
   month_id bigint(20) NOT NULL,
   currency_id bigint(20) NOT NULL,
-  PRIMARY KEY (id)
+  ref varchar(256),
+  PRIMARY KEY (id),
+  UNIQUE key (ref)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 CREATE TABLE investment (
@@ -89,7 +98,9 @@ CREATE TABLE investment (
   balance decimal(20,6) NOT NULL,
   month_id bigint(20) NOT NULL,
   currency_id bigint(20) NOT NULL,
-  PRIMARY KEY (id)
+  ref varchar(256),
+  PRIMARY KEY (id),
+  UNIQUE key (ref)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 CREATE TABLE expense (
@@ -101,9 +112,10 @@ CREATE TABLE expense (
   payment_method_id bigint(20) NOT NULL,
   category_id bigint(20) NOT NULL,
   description varchar(256) default '',
-  PRIMARY KEY (id)
+  ref varchar(256),
+  PRIMARY KEY (id),
+  UNIQUE key (ref)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
 
 -- Test data (review FKs)
 insert into income (own, amount, month_id, currency_id, description) values (0, 1200,1,1,'Deuda Germán');

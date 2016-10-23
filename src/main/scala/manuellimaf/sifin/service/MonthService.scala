@@ -24,7 +24,7 @@ object DefaultMonthService extends MonthService with Logging with Config {
     val savings = SavingsDAO.getMonthTotalSavings(month).getOrElse("$", 0d) // $ only for now
     val invested = SavingsDAO.getMonthTotalInvestments(month).getOrElse("$", 0d) // $ only for now
     val available = availability(incomeData, expensesData, savings, invested)
-    val dollar = CatalogDAO.getCurrency("u$d")
+    val dollar = CatalogDAO.getCurrency("USD")
     val usdPrice = ExchangeRateDAO.getExchangeRate(month, dollar)
     MonthData(
       income = incomeData,
@@ -32,7 +32,7 @@ object DefaultMonthService extends MonthService with Logging with Config {
       savings = savings,
       invested = invested,
       available = available,
-      usdPrice = usdPrice)
+      usdPrice = usdPrice.getOrElse(-1))
   }
 
   private def toExpensesData(expenses: Seq[Expense], month: Month): ExpenseData = {
@@ -40,7 +40,7 @@ object DefaultMonthService extends MonthService with Logging with Config {
     var tc = 0d
     var taxes = 0d
     expenses.foreach {
-      case Expense(_, amount, _, Currency(_, symbol), paymentMethod, category) if symbol == "$" =>
+      case Expense(_, amount, _, Currency(_, _, code), paymentMethod, category, _) if code == "ARS" =>
         if (category.isTax) {
           taxes += amount
         } else if (paymentMethod.methodType == "cash") {
@@ -61,7 +61,7 @@ object DefaultMonthService extends MonthService with Logging with Config {
     var own = 0d
     var other = 0d
     incomes.foreach {
-      case Income(_, isOwn, amount, Currency(_, symbol), _) if symbol == "$" =>
+      case Income(_, isOwn, amount, Currency(_, _, code), _, _) if code == "ARS" =>
         if(isOwn) own += amount
         else other += amount
       case _ => // Only $ for now
@@ -73,7 +73,6 @@ object DefaultMonthService extends MonthService with Logging with Config {
     val income = incomes.own + incomes.other
     income - expenses.total - savings - invested
   }
-
 
 }
 

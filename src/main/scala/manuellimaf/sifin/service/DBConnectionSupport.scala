@@ -16,19 +16,8 @@ trait DBConnectionSupport extends Config with Logging {
     }
   }
 
-  protected def withQueryResult[T](query: String, params: Seq[Any] = Seq.empty)(block: ResultSet => T): Seq[T] = withDBConnection {
-    connection =>
-      val statement: PreparedStatement = connection.prepareStatement(query)
-
-      def setParams(parameters: Seq[Any], idx: Int = 1): Unit = parameters match {
-        case Nil => // Nothing to do
-        case p :: ps =>
-          log.debug(s"Setting parameter[$idx]: $p")
-          statement.setObject(idx, p)
-          setParams(ps, idx + 1)
-      }
-
-      setParams(params)
+  protected def withQueryResult[T](query: String, params: Seq[Any] = Seq.empty)(block: ResultSet => T): Seq[T] =
+    withStatement(query, params) { statement =>
       val resultSet = statement.executeQuery()
       try {
         var r = Seq.empty[T]
@@ -38,11 +27,39 @@ trait DBConnectionSupport extends Config with Logging {
         r
       } finally {
         try {
-          statement.close()
           resultSet.close()
         } catch {
           case e: Exception => //nothing to do...
         }
       }
   }
+
+  protected def executeUpdate(query: String, params: Seq[Any] = Seq.empty): Int =
+    withStatement(query, params)(_.executeUpdate())
+
+  private def withStatement[T](query: String, params: Seq[Any] = Seq.empty)(block: PreparedStatement => T) =
+    withDBConnection { connection =>
+      val statement: PreparedStatement = connection.prepareStatement(query)
+
+      def bindParams(parameters: Seq[Any], idx: Int = 1): Unit = parameters match {
+        case Nil => // Nothing to bind
+        case p :: ps =>
+          log.debug(s"Setting parameter[$idx]: $p")
+          statement.setObject(idx, p)
+          bindParams(ps, idx + 1)
+      }
+
+      bindParams(params)
+
+      try {
+        block(statement)
+      } finally {
+        try {
+          statement.close()
+        } catch {
+          case e: Exception => //nothing to do...
+        }
+      }
+  }
+
 }

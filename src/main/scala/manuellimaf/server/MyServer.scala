@@ -24,7 +24,7 @@ trait MyServer extends Controller {
 
     //TODO: rejection policy and uncaught exception handler as a last effort to handle exceptions
     val executor: ThreadPoolExecutor = new ThreadPoolExecutor(minThreads, maxThreads, threadsIdleTimeout_sec, TimeUnit.SECONDS,
-      new SynchronousQueue[Runnable](), NamedThreadFactory(s"jetty"))
+      new SynchronousQueue[Runnable](), NamedThreadFactory("jetty"))
 
     val threadPool = new ExecutorThreadPool(executor)
 

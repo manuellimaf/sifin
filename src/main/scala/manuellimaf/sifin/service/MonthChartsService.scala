@@ -26,7 +26,7 @@ object DefaultMonthChartsService extends MonthChartsService with Logging with Co
 
   def getExpensesByDay(monthId: Long): Seq[Double] = {
     val month = CatalogDAO.getMonthById(monthId)
-    val currency = CatalogDAO.getCurrency("$") // Only $
+    val currency = CatalogDAO.getCurrency("ARS") // Only $
 
     val expenses = ExpenseDAO.getMonthExpensesByDay(month, currency)
     (1 to month.days) map (day => expenses.getOrElse(day, 0D))

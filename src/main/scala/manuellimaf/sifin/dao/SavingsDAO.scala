@@ -14,7 +14,7 @@ object SavingsDAO extends DBConnectionSupport {
         |from saving s
         |inner join currency curr on curr.id = s.currency_id
         |where s.month_id = ?
-        |group by curr.symbol""".stripMargin, Seq(month.id)) {
+        |group by curr.symbol""".stripMargin, Seq(month.id.get)) {
       res => savings.put(res.getString("curr.symbol"), res.getDouble("amount"))
     }
     savings.toMap
@@ -27,7 +27,7 @@ object SavingsDAO extends DBConnectionSupport {
         |from investment i
         |inner join currency curr on curr.id = i.currency_id
         |where i.month_id = ?
-        |group by curr.symbol""".stripMargin, Seq(month.id)) {
+        |group by curr.symbol""".stripMargin, Seq(month.id.get)) {
       res => investments.put(res.getString("curr.symbol"), res.getDouble("amount"))
     }
     investments.toMap
