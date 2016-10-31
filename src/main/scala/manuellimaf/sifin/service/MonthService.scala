@@ -40,8 +40,8 @@ object DefaultMonthService extends MonthService with Logging with Config {
     var tc = 0d
     var taxes = 0d
     expenses.foreach {
-      case Expense(_, amount, _, Currency(_, _, code), paymentMethod, category, _) if code == "ARS" =>
-        if (category.isTax) {
+      case Expense(_, amount, _, _, Currency(_, _, code), paymentMethod, category, _, _) if code == "ARS" =>
+        if (category.categoryType == "TAX") {
           taxes += amount
         } else if (paymentMethod.methodType == "cash") {
           cash += amount
@@ -61,7 +61,7 @@ object DefaultMonthService extends MonthService with Logging with Config {
     var own = 0d
     var other = 0d
     incomes.foreach {
-      case Income(_, isOwn, amount, Currency(_, _, code), _, _) if code == "ARS" =>
+      case Income(_, isOwn, amount, Currency(_, _, code), _, _, _) if code == "ARS" =>
         if(isOwn) own += amount
         else other += amount
       case _ => // Only $ for now

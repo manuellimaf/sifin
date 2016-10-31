@@ -10,12 +10,12 @@ object CatalogDAO extends DBConnectionSupport {
   }.head
 
 
-  def getCateogry(name: String): Category = withQueryResult("""select id, name, description, is_tax from category where name = ?""", Seq(name)) {
+  def getCateogry(name: String): Category = withQueryResult("""select id, name, description, type from category where name = ?""", Seq(name)) {
     res => Category(
       id = res.getLong("id"),
       name = res.getString("name"),
       description = res.getString("description"),
-      isTax = res.getBoolean("is_tax"))
+      categoryType = res.getString("type"))
   }.head
 
 
@@ -35,12 +35,12 @@ object CatalogDAO extends DBConnectionSupport {
     res => Month(Some(res.getLong("id")), res.getString("name"))
   }.headOption
 
-  def getAllCategories: Seq[Category] = withQueryResult("select id, name, description, is_tax from category order by name") {
+  def getAllCategories: Seq[Category] = withQueryResult("select id, name, description, type from category order by name") {
     res => Category(
       id = res.getLong("id"),
       name = res.getString("name"),
       description = res.getString("description"),
-      isTax = res.getBoolean("is_tax"))
+      categoryType = res.getString("type"))
   }
 
   def getAllMonths: Seq[Month] = withQueryResult("select id, name from month order by name") {

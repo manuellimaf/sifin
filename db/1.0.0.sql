@@ -7,19 +7,19 @@ CREATE TABLE category (
   UNIQUE KEY name_UNIQUE (name)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-insert into category (name, is_tax, description) values ('cat012', 'EXPENSE', 'Supermercado');
-insert into category (name, is_tax, description) values ('cat008', 'EXPENSE', 'Comida trabajo');
-insert into category (name, is_tax, description) values ('cat007', 'EXPENSE', 'Comida fuera');
-insert into category (name, is_tax, description) values ('cat013', 'EXPENSE', 'Salidas');
-insert into category (name, is_tax, description) values ('cat010', 'EXPENSE', 'Transporte');
-insert into category (name, is_tax, description) values ('cat004', 'EXPENSE', 'Educación');
-insert into category (name, is_tax, description) values ('cat005', 'EXPENSE', 'Ropa');
-insert into category (name, is_tax, description) values ('defaultOut', 'EXPENSE', 'Extras');
-insert into category (name, is_tax, description) values ('20161023T175615', 'TAX', 'Fijos');
-insert into category (name, is_tax, description) values ('defaultInt', 'INCOME', 'Ingreso');
-insert into category (name, is_tax, description) values ('20161023T175712', 'INCOME', 'Ingreso no propio');
-insert into category (name, is_tax, description) values ('20161023T175819', 'SAVING', 'Ahorro');
-insert into category (name, is_tax, description) values ('20161023T175837', 'INVESTMENT', 'Inversión');
+insert into category (name, type, description) values ('cat012', 'EXPENSE', 'Supermercado');
+insert into category (name, type, description) values ('cat008', 'EXPENSE', 'Comida trabajo');
+insert into category (name, type, description) values ('cat007', 'EXPENSE', 'Comida fuera');
+insert into category (name, type, description) values ('cat013', 'EXPENSE', 'Salidas');
+insert into category (name, type, description) values ('cat010', 'EXPENSE', 'Transporte');
+insert into category (name, type, description) values ('cat004', 'EXPENSE', 'Educación');
+insert into category (name, type, description) values ('cat005', 'EXPENSE', 'Ropa');
+insert into category (name, type, description) values ('defaultOut', 'EXPENSE', 'Extras');
+insert into category (name, type, description) values ('20161023T175615', 'TAX', 'Fijos');
+insert into category (name, type, description) values ('defaultInt', 'INCOME', 'Ingreso');
+insert into category (name, type, description) values ('20161023T175712', 'DEVOLUTION', 'Ingreso no propio');
+insert into category (name, type, description) values ('20161023T175819', 'SAVING', 'Ahorro');
+insert into category (name, type, description) values ('20161023T175837', 'INVESTMENT', 'Inversión');
 
 CREATE TABLE month (
   id bigint(20) NOT NULL AUTO_INCREMENT,
@@ -87,6 +87,7 @@ CREATE TABLE saving (
   balance decimal(20,6) NOT NULL,
   month_id bigint(20) NOT NULL,
   currency_id bigint(20) NOT NULL,
+  description varchar(256) default '',
   ref varchar(256),
   PRIMARY KEY (id),
   UNIQUE key (ref)
@@ -98,6 +99,7 @@ CREATE TABLE investment (
   balance decimal(20,6) NOT NULL,
   month_id bigint(20) NOT NULL,
   currency_id bigint(20) NOT NULL,
+  description varchar(256) default '',
   ref varchar(256),
   PRIMARY KEY (id),
   UNIQUE key (ref)
