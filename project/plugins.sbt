@@ -12,5 +12,5 @@ addSbtPlugin("com.typesafe.sbt" % "sbt-native-packager" % "1.0.0")
 
 addSbtPlugin("com.typesafe.sbteclipse" % "sbteclipse-plugin" % "2.5.0")
 
-addSbtPlugin("com.despegar.sbt" %% "madonna" % "0.0.33")
+addSbtPlugin("com.despegar.sbt" %% "madonna" % "0.1.2")
 

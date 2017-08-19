@@ -19,7 +19,7 @@ object FileImport {
     import ExpenseImport._
 
     // leer un archivo
-    val dataCsv =  Files.newInputStream(Paths.get("/home/manuel/Desktop/downloads/DataWin (1).csv"))
+    val dataCsv =  Files.newInputStream(Paths.get("/home/manuel/Downloads/DataWin.csv"))
 
     // TODO - Parsear el archivo
     val movements = parseFile(dataCsv)

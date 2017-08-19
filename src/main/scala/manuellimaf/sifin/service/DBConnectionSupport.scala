@@ -8,7 +8,7 @@ import manuellimaf.sifin.config.Config
 trait DBConnectionSupport extends Config with Logging {
 
   private def withDBConnection[T](block: Connection => T) = {
-    val connection: Connection = DriverManager.getConnection(s"jdbc:mysql://$dbHost:$dbPort/sifin", dbUser, dbPass)
+    val connection: Connection = DriverManager.getConnection(s"jdbc:mysql://$dbHost:$dbPort/sifin?useSSL=false", dbUser, dbPass)
     try {
       block(connection)
     } finally {

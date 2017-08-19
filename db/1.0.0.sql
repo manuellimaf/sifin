@@ -14,6 +14,7 @@ insert into category (name, type, description) values ('cat013', 'EXPENSE', 'Sal
 insert into category (name, type, description) values ('cat010', 'EXPENSE', 'Transporte');
 insert into category (name, type, description) values ('cat004', 'EXPENSE', 'Educación');
 insert into category (name, type, description) values ('cat005', 'EXPENSE', 'Ropa');
+insert into category (name, type, description) values ('cat015', 'EXPENSE', 'Salud');
 insert into category (name, type, description) values ('defaultOut', 'EXPENSE', 'Extras');
 insert into category (name, type, description) values ('20161023T175615', 'TAX', 'Fijos');
 insert into category (name, type, description) values ('defaultInt', 'INCOME', 'Ingreso');
@@ -32,6 +33,15 @@ insert into month (name) values ('2016/09');
 insert into month (name) values ('2016/10');
 insert into month (name) values ('2016/11');
 insert into month (name) values ('2016/12');
+insert into month (name) values ('2017/01');
+insert into month (name) values ('2017/02');
+insert into month (name) values ('2017/03');
+insert into month (name) values ('2017/04');
+insert into month (name) values ('2017/05');
+insert into month (name) values ('2017/06');
+insert into month (name) values ('2017/07');
+insert into month (name) values ('2017/08');
+insert into month (name) values ('2017/09');
 
 CREATE TABLE income (
   id bigint(20) NOT NULL AUTO_INCREMENT,

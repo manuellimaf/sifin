@@ -20,8 +20,8 @@ libraryDependencies ++= Seq(
   "com.fasterxml.jackson.module"  %   "jackson-module-afterburner"  % jacksonVersion,
   "org.apache.httpcomponents"     %   "httpclient"                  % "4.5",
   "org.apache.httpcomponents"     %   "httpmime"                    % "4.5",
-  "mysql"                         %   "mysql-connector-java"        % "5.1.38",
-  "com.despegar.sbt"	          %%  "madonna-configuration" 	    % "0.0.4",
+  "mysql"                         %   "mysql-connector-java"        % "6.0.6",
+  "com.despegar.sbt"	            %%  "madonna-configuration" 	    % "0.0.4",
   "org.apache.commons"            %   "commons-email"               % "1.3.3",
   "org.scalatest"                 %%  "scalatest"                   % "2.2.6"   % "test",
   "org.mockito"                   %   "mockito-all"                 % "1.10.19" % "test"
